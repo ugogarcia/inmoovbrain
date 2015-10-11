@@ -31,6 +31,7 @@ import threading
 import urllib
 import json
 import datetime
+import sys
 
 class InMoov():
     def __init__(self):
@@ -111,12 +112,20 @@ class InMoov():
             time.sleep(1)
 
     def saveSoundCache(self):
-        json.dump(self.soundCache, open(os.path.dirname(os.path.abspath(__file__))+"/speechcache/index.json",'w'))
+        if getattr(sys, 'frozen', False):
+            application_path = os.path.dirname(sys.executable)
+        elif __file__:
+            application_path = os.path.dirname(__file__)
+        json.dump(self.soundCache, open(application_path+"/speechcache/index.json",'w'))
 
     def loadSoundCache(self):
-        if not os.path.isfile(os.path.dirname(os.path.abspath(__file__))+"/speechcache/index.json"):
+        if getattr(sys, 'frozen', False):
+            application_path = os.path.dirname(sys.executable)
+        elif __file__:
+            application_path = os.path.dirname(__file__)
+        if not os.path.isfile(application_path+"/speechcache/index.json"):
             return
-        self.soundCache = json.load(open(os.path.dirname(os.path.abspath(__file__))+"/speechcache/index.json",'r'))
+        self.soundCache = json.load(open(application_path+"/speechcache/index.json",'r'))
 
     def say (self, what):
         sentences=what.split(".")
@@ -127,6 +136,7 @@ class InMoov():
                 continue
 
             print ("SAYING: ", sentence)
+            '''
             path=os.path.dirname(os.path.abspath(__file__))+"/speechcache/"
             filename=sentence.lower().replace(" ", "")+".mp3"
 
@@ -150,6 +160,7 @@ class InMoov():
                 time.sleep(0.2)
             self.head.jaw.moveTo(10)
             time.sleep(0.5)
+            '''
 
     #######################################################################################
     # VOICE COMMAND FUNCTIONS
@@ -279,7 +290,6 @@ class InMoov():
         if result[0:5]=="PYCMD":
             exec (result[6:])
         else:
-            print (result)
             self.say(result)
 
     def lookAndHello(self):
