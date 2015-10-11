@@ -45,7 +45,8 @@ def execute(code):
 
 def do_runpythoncmd (response, cmd):
     res=execute(cmd)
-    response.wfile.write(bytes(res, "utf-8"))
+    if res!="":
+        response.wfile.write(bytes(res, "utf-8"))
 
 def do_getservopositions (response):
     positions={}
@@ -94,10 +95,6 @@ def do_getserverstatus (response):
     
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
         # Obtenemos comando y parámetros
         pars=""
         pos=self.path.find("/",1)
@@ -107,7 +104,11 @@ class MyServer(BaseHTTPRequestHandler):
             cmd=self.path[1:pos].lower()
             pars=urllib.parse.unquote(self.path[pos+1:])
 
-        #do_runvoicecmd(self,"hola esto es una prueba")
+        if cmd!="console":
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
 
         # Procesamos comando y actuamos
         if cmd=="runpythoncmd":
@@ -128,8 +129,42 @@ class MyServer(BaseHTTPRequestHandler):
             welcome_msg=welcome_msg+"getservopostatus - Gets if the servos area attached or not - http://path_to_server/getservostatus<br>"
             welcome_msg=welcome_msg+"</body></html>"
             self.wfile.write(bytes(welcome_msg, "utf-8"))
-        else:
-            print ("Command not recognized: ", cmd)
+        elif cmd=="console":
+            if pars.find("?")!=-1:
+                query_string=pars[pars.find("?")+1:]
+                url=pars[0:pars.find("?")]
+            else:
+                query_string=""
+                url=pars
+            if getattr(sys, 'frozen', False):
+                application_path = os.path.dirname(sys.executable)
+            elif __file__:
+                application_path = os.path.dirname(__file__)
+
+            if not os.path.isfile(application_path+"/"+cmd+"/"+url):
+                self.send_response(404)
+                self.end_headers()
+                return
+
+            self.send_response(200)
+            pos=url.rfind(".",1)
+            if pos==-1:
+                return
+
+            ext=url[pos+1:].lower()
+            if ext=="png" or ext=="gif" or ext=="jpg":
+                self.send_header("Content-type", "image/"+ext)
+            else:
+                self.send_header("Content-type", "text/html")
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+
+            if ext=="png" or ext=="gif" or ext=="jpg":
+                filecontent=open(application_path+"/"+cmd+"/"+url,'rb').read()
+                self.wfile.write(filecontent)
+            else:
+                filecontent=open(application_path+"/"+cmd+"/"+url,'r').read()
+                self.wfile.write(bytes(filecontent,'UTF-8'))
 
 print ("Running setup...")
 
