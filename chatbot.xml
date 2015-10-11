@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chatbot>
+    <language id="1">
+        <sentence>
+            <id>howareyou</id>
+            <pattern>(.*)(hola|que pasa|cómo va|hey)(.*)</pattern>
+            <response>PYCMD self.lookAndHello()</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(bien|maravilla|perfecto|guay)(.*)</pattern>
+            <context>howareyou</context>
+            <response>Me alegro</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(mal|regular|triste)(.*)</pattern>
+            <context>howareyou</context>
+            <response>Vaya. Espero que todo se arregle</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(sueño)(.*)</pattern>
+            <context>howareyou</context>
+            <response>Necesitas dormir más</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(aburrido)(.*)</pattern>
+            <context>howareyou</context>
+            <response>Te podría contar un chiste. Pero no me has programado para ello</response>
+        </sentence>
+
+        # Despedida
+        <sentence>
+            <pattern>(.*)(adios|hasta luego|hasta otra|nos vemos)</pattern>
+            <response>PYCMD self.bye()</response>
+        </sentence>
+
+        # ¿Cuál es tu nombre?
+        <sentence>
+            <pattern>(.*)(cómo)(.*)(llamas)</pattern>
+            <response>Me llamo Supercool. Tu me pusiste ese nombre</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(cuál)(.*)(nombre)</pattern>
+            <response>Me llamo Supercool. Tu me pusiste ese nombre</response>
+        </sentence>
+
+        # Edad
+        <sentence>
+            <id>whenyoucreatedme</id>
+            <pattern>(.*)(cuál|qué|que)(.*)(edad)</pattern>
+            <response>PYCMD self.age()</response>
+        </sentence>
+        <sentence>
+            <id>whenyoucreatedme</id>
+            <pattern>(.*)(años)(.*)(tienes)</pattern>
+            <response>PYCMD self.age()</response>
+        </sentence>
+
+        # ¿Qué sabes hacer?
+        <sentence>
+            <pattern>(.*)(sabes)(.*)(hacer)</pattern>
+            <response>Por ahora no se hacer mucho. Sólo intentar responderte a tus preguntas</response>
+        </sentence>
+
+        # Wikipedia
+        <sentence>
+            <id>wikipedia</id>
+            <pattern>(.*)(significado de)(.*)(palabra)</pattern>
+            <response>PYCMD self.wikipedia()</response>
+        </sentence>
+        <sentence>
+            <id>wikipedia</id>
+            <pattern>(.*)(significado de)</pattern>
+            <response>PYCMD self.wikipedia()</response>
+        </sentence>
+        <sentence>
+            <id>wikipedia</id>
+            <pattern>(.*)(significa)</pattern>
+            <response>PYCMD self.wikipedia()</response>
+        </sentence>
+        <sentence>
+            <id>wikipedia</id>
+            <pattern>(.*)(wikipedia|internet)(.*)(palabra)</pattern>
+            <response>PYCMD self.wikipedia()</response>
+        </sentence>
+        <sentence>
+            <id>wikipedia</id>
+            <pattern>(.*)(wikipedia|internet)</pattern>
+            <response>PYCMD self.wikipedia()</response>
+        </sentence>
+        <sentence>
+            <id>wikipedia</id>
+            <pattern>(.*)(qué|que)(.*)(sabes|decirme)(.*)(de)</pattern>
+            <response>PYCMD self.wikipedia()</response>
+        </sentence>
+        <sentence>
+            <id>wikipedia</id>
+            <pattern>(.*)(más|mas)(.*)(detalle|info|información|datos)</pattern>
+            <context>wikipedia</context>
+            <response>PYCMD self.wikipedia(True)</response>
+        </sentence>
+
+        # Hora
+        <sentence>
+            <pattern>(.*)(tienes|tiene)(.*)(hora)</pattern>
+            <response>PYCMD self.time()</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(hora)(.*)(es)</pattern>
+            <response>PYCMD self.time()</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(dime|dices)(.*)(hora)</pattern>
+            <response>PYCMD self.time()</response>
+        </sentence>
+
+        # Día
+        <sentence>
+            <pattern>(.*)(fecha|dia|día)(.*)(hoy|actual|estamos)</pattern>
+            <response>PYCMD self.date()</response>
+        </sentence>
+
+        # Tiempo
+        <sentence>
+            <pattern>(.*)(qué|que)(.*)(tiempo)(.*)(hoy)</pattern>
+            <response>PYCMD self.weather()</response>
+        </sentence>
+
+        # Abrir mano
+        <sentence>
+            <pattern>(.*)(abrir|abre|abres)(.*)(dos|ambas|todas)(.*)(mano|manita)</pattern>
+            <response>PYCMD self.cmdOpenHand ('both')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(abrir|abre|abres)(.*)(mano|manita)(.*)(derecha)</pattern>
+            <response>PYCMD self.cmdOpenHand ('right')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(abrir|abre|abres)(.*)(mano|manita)(.*)(izquierda)</pattern>
+            <response>PYCMD self.cmdOpenHand ('left')</response>
+        </sentence>
+        <sentence>
+            <id>openhand</id>
+            <pattern>(.*)(abrir|abre|abres)(.*)(mano|manita)</pattern>
+            <response>¿Qué mano quieres que abra?</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(dos|ambas|todas)</pattern>
+            <context>openhand</context>
+            <response>PYCMD self.cmdOpenHand ('both')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(derecha)</pattern>
+            <context>openhand</context>
+            <response>PYCMD self.cmdOpenHand ('right')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(izquierda)</pattern>
+            <context>openhand</context>
+            <response>PYCMD self.cmdOpenHand ('left')</response>
+        </sentence>
+        <sentence>
+            <context>openhand</context>
+            <response>No entiendo que mano quieres que abra</response>
+        </sentence>
+
+        # Cerrar mano despacio
+        <sentence>
+            <id>closebothhandslowly</id>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(despacio|despacito|poco a
+                poco)(.*)(dos|ambas|todas)(.*)(mano|manita)
+            </pattern>
+            <response>PYCMD self.cmdCloseHand ('right', 'slowly')</response>
+        </sentence>
+        <sentence>
+            <id>closerighthandslowly</id>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(mano|manita)(.*)(derecha)(.*)(despacio|despacito|poco a poco)</pattern>
+            <response>PYCMD self.cmdCloseHand ('right', 'slowly')</response>
+        </sentence>
+        <sentence>
+            <id>closerighthandslowly</id>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(despacio|despacito|poco a poco)(.*)(mano|manita)(.*)(derecha)</pattern>
+            <response>PYCMD self.cmdCloseHand ('right', 'slowly')</response>
+        </sentence>
+        <sentence>
+            <id>closelefthandslowly</id>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(mano|manita)(.*)(izquierda)(.*)(despacio|despacito|poco a poco)
+            </pattern>
+            <response>PYCMD self.cmdCloseHand ('left', 'slowly')</response>
+        </sentence>
+        <sentence>
+            <id>closelefthandslowly</id>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(despacio|despacito|poco a poco)(.*)(mano|manita)(.*)(izquierda)</pattern>
+            <response>PYCMD self.cmdCloseHand ('left', 'slowly')</response>
+        </sentence>
+        <sentence>
+            <id>closehandslowly</id>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(mano|manita)(.*)(despacio|despacito|poco a poco)</pattern>
+            <response>¿Qué mano quieres que cierre poco a poco?</response>
+        </sentence>
+        <sentence>
+            <id>closebothhandslowly</id>
+            <pattern>(.*)(dos|ambas|todas)</pattern>
+            <context>closehandslowly</context>
+            <response>PYCMD self.cmdCloseHand ('both', 'slowly')</response>
+        </sentence>
+        <sentence>
+            <id>closerighthandslowly</id>
+            <pattern>(.*)(derecha)</pattern>
+            <context>closehandslowly</context>
+            <response>PYCMD self.cmdCloseHand ('right', 'slowly')</response>
+        </sentence>
+        <sentence>
+            <id>closelefthandslowly</id>
+            <pattern>(.*)(izquierda)</pattern>
+            <context>closehandslowly</context>
+            <response>PYCMD self.cmdCloseHand ('left', 'slowly')</response>
+        </sentence>
+        <sentence>
+            <context>closehandslowly</context>
+            <response>No entiendo que mano quieres que cierre</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(ya|para|basta|stop|listo)</pattern>
+            <context>closebothhandslowly</context>
+            <response>PYCMD self.cmdStopHand ('both')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(ya|para|basta|stop|listo)</pattern>
+            <context>closerighthandslowly</context>
+            <response>PYCMD self.cmdStopHand ('right')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(ya|para|basta|stop|listo)</pattern>
+            <context>closelefthandslowly</context>
+            <response>PYCMD self.cmdStopHand ('left')</response>
+        </sentence>
+
+        # Cerrar mano
+        <sentence>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(dos|ambas|todas)(.*)(mano|manita)</pattern>
+            <response>PYCMD self.cmdCloseHand ('both')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(mano|manita)(.*)(derecha)</pattern>
+            <response>PYCMD self.cmdCloseHand ('right')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(mano|manita)(.*)(izquierda)</pattern>
+            <response>PYCMD self.cmdCloseHand ('left')</response>
+        </sentence>
+        <sentence>
+            <id>closehand</id>
+            <pattern>(.*)(cerrar|cierra|cierras|serrar|sierra|sierras)(.*)(mano|manita)</pattern>
+            <response>¿Qué mano quieres que cierre?</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(dos|ambas|todas)</pattern>
+            <context>openhand</context>
+            <response>PYCMD self.cmdCloseHand ('both')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(derecha)</pattern>
+            <context>closehand</context>
+            <response>PYCMD self.cmdCloseHand ('right')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(izquierda)</pattern>
+            <context>closehand</context>
+            <response>PYCMD self.cmdCloseHand ('left')</response>
+        </sentence>
+        <sentence>
+            <context>closehand</context>
+            <response>No entiendo que mano quieres que cierre</response>
+        </sentence>
+
+        # Coge esto
+        <sentence>
+            <pattern>(.*)(toma|coge)(.*)(esto|esta)</pattern>
+            <response>PYCMD self.cmdTakeThis ()</response>
+        </sentence>
+
+        # Extender el brazo adelante
+        <sentence>
+            <pattern>(.*)(pon|extiende|mueve)(.*)(brazo)(.*)(izquierdo)(.*)(adelante|delante)</pattern>
+            <response>PYCMD self.cmdArmForward ('left')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(pon|extiende|mueve)(.*)(brazo)(.*)(derecho)(.*)(adelante|delante)</pattern>
+            <response>PYCMD self.cmdArmForward ('right')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(pon|extiende|mueve)(.*)(adelante|delante)(.*)(brazo)(.*)(izquierdo)</pattern>
+            <response>PYCMD self.cmdArmForward ('left')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(pon|extiende|mueve)(.*)(adelante|delante)(.*)(brazo)(.*)(derecho)</pattern>
+            <response>PYCMD self.cmdArmForward ('right')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(pon|extiende|mueve)(.*)(brazo)(.*)(dos|ambos|todos)(.*)(adelante|delante)</pattern>
+            <response>PYCMD self.cmdArmForward ('both')</response>
+        </sentence>
+        <sentence>
+            <id>armforward</id>
+            <pattern>(.*)(pon|extiende|mueve)(.*)(brazo)(.*)(adelante|delante)</pattern>
+            <response>¿Qué brazo quieres que mueva?</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(dos|ambas|todas)</pattern>
+            <context>openhand</context>
+            <response>PYCMD self.cmdArmfForward ('both')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(derecha)</pattern>
+            <context>armforward</context>
+            <response>PYCMD self.cmdArmForward ('right')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(izquierda)</pattern>
+            <context>armforward</context>
+            <response>PYCMD self.cmdArmForward ('left')</response>
+        </sentence>
+        <sentence>
+            <context>armforward</context>
+            <response>No entiendo que brazo quieres que mueva</response>
+        </sentence>
+
+        # Bajar el brazo
+        <sentence>
+            <pattern>(.*)(baja)(.*)(brazo)(.*)(izquierdo)</pattern>
+            <response>PYCMD self.leftArm.rest()</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(baja)(.*)(brazo)(.*)(derecho)</pattern>
+            <response>PYCMD self.rightArm.rest()</response>
+        </sentence>
+        <sentence>
+            <id>restarm</id>
+            <pattern>(.*)(baja)(.*)(brazo)</pattern>
+            <response>¿Qué brazo quieres que baje?</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(derecho)</pattern>
+            <context>restarm</context>
+            <response>PYCMD self.rightArm.rest()</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(izquierdo)</pattern>
+            <context>restarm</context>
+            <response>PYCMD self.leftArms.rest()</response>
+        </sentence>
+        <sentence>
+            <context>restarm</context>
+            <response>No entiendo que brazo quieres que baje</response>
+        </sentence>
+
+        # Levantar cabeza
+        <sentence>
+            <pattern>(.*)(levantar|levanta|levantas|subir|sube|subes)(.*)(cabeza|cabecita)</pattern>
+            <response>PYCMD self.cmdHeadUp ()</response>
+        </sentence>
+        # Agachar cabeza
+        <sentence>
+            <pattern>(.*)(bajar|baja|bajas|agachar|agacha|agachas)(.*)(cabeza|cabecita)</pattern>
+            <response>PYCMD self.cmdHeadDown ()</response>
+        </sentence>
+        # Reposar cabeza
+        <sentence>
+            <pattern>(.*)(cabeza|cabecita)(.*)(posición)(.*)(descanso|descansar|normal|reposo)</pattern>
+            <response>PYCMD self.cmdHeadRest ()</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(descansar|descansa|descansas)(.*)(cabeza|cabecita)</pattern>
+            <response>PYCMD self.cmdHeadRest ()</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(pon|pones|deja)(.*)(normal|resposo)(.*)(cabeza|cabecita)</pattern>
+            <response>PYCMD self.cmdHeadRest ()</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(pon|pones|deja)(.*)(cabeza|cabecita)(.*)(normal|resposo)</pattern>
+            <response>PYCMD self.cmdHeadRest ()</response>
+        </sentence>
+        # Saludar
+        <sentence>
+            <pattern>(.*)(saludar|saluda|saludas)</pattern>
+            <response>PYCMD self.cmdGreet()</response>
+        </sentence>
+        # Contar
+        <sentence>
+            <pattern>(.*)(contar|cuenta|cuentas)(.*)(hasta)</pattern>
+            <response>PYCMD self.cmdCountTo()</response>
+        </sentence>
+        <sentence>
+            <id>countto</id>
+            <pattern>(.*)(contar|cuenta|cuentas)</pattern>
+            <response>¿Hasta cuánto quieres que cuente?</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(uno)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('one')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(dos)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('two')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(tres)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('three')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(cuatro)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('four')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(cinco)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('five')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(seis)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('six')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(siete)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('seven')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(ocho)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('eight')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(nueve)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('nine')</response>
+        </sentence>
+        <sentence>
+            <pattern>(.*)(diez)</pattern>
+            <context>countto</context>
+            <response>PYCMD self.cmdCountTo('ten')</response>
+        </sentence>
+        <sentence>
+            <context>countto</context>
+            <response>Sólo se contar hasta diez</response>
+        </sentence>
+
+
+        # Descansa
+        <sentence>
+            <pattern>(.*)(descansa|reposo)</pattern>
+            <response>PYCMD self.rest()</response>
+        </sentence>
+        # CALCULADORA. TODO!!!!
+        <sentence>
+            <pattern>(.*)[0-9][ ](más|menos)[ ][0-9]</pattern>
+            <response>PYCMD self.calculator()"</response>
+        </sentence>
+    </language>
+</chatbot>
