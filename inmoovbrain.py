@@ -154,6 +154,10 @@ class MyServer(BaseHTTPRequestHandler):
             ext=url[pos+1:].lower()
             if ext=="png" or ext=="gif" or ext=="jpg":
                 self.send_header("Content-type", "image/"+ext)
+            elif ext=="css":
+                self.send_header("Content-type", "text/css")
+            elif ext=="js":
+                self.send_header("Content-type", "text/javascript")
             else:
                 self.send_header("Content-type", "text/html")
             self.send_header('Access-Control-Allow-Origin', '*')
